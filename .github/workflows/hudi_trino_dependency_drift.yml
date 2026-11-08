@@ -21,14 +21,15 @@ name: Hudi Trino Dependency Drift
 # plugin is assembled under trino-root and bundles Trino's versions. This nightly job
 # reports the libraries whose versions differ between the two classpaths (#19958). It is
 # a report, not a gate: it files or updates an issue and is never a required check.
-on:
-  schedule:
-    - cron: '47 5 * * *'
-  workflow_dispatch:
-
-# Two jobs on purpose: the compare job executes mvnw from the pinned trinodb/trino
-# checkout, so it holds a read-only token; the report job holds issues: write but runs
-# no Maven or third-party code.
+# Triggers intentionally disabled for Argus-OSS-Security.
+# on:
+#   schedule:
+#     - cron: '47 5 * * *'
+#   workflow_dispatch:
+# 
+# # Two jobs on purpose: the compare job executes mvnw from the pinned trinodb/trino
+# # checkout, so it holds a read-only token; the report job holds issues: write but runs
+# # no Maven or third-party code.
 permissions:
   contents: read
 

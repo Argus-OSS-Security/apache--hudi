@@ -17,10 +17,11 @@
 
 name: Azure CI
 
-on:
-  issue_comment:
-    types: [ created, edited, deleted ]
-
+# Triggers intentionally disabled for Argus-OSS-Security.
+# on:
+#   issue_comment:
+#     types: [ created, edited, deleted ]
+# 
 permissions:
   statuses: write
   pull-requests: read

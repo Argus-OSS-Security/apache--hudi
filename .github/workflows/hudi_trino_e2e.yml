@@ -1,51 +1,52 @@
 name: Hudi Trino E2E
 
-on:
-  push:
-    branches:
-      - master
-      - 'release-*'
-    paths:
-      # Several entries are deliberately broad -- keep them that way:
-      #   docker/demo/**        the ITs drive demo fixture scripts
-      #                         (sparksql-*.commands, setup_demo_container.sh).
-      #   docker/compose/hadoop.env
-      #                         copied into the generated compose dir and loaded
-      #                         by every service in the stack.
-      #   hudi-integ-test/**    the IT step runs `mvn verify -pl hudi-integ-test`,
-      #                         which compiles the whole module, so a break
-      #                         anywhere in it fails this pipeline -- not just
-      #                         under integ2/.
-      #   pom.xml               owns trino.version / trino.sha (the shim pom's parent,
-      #                         the plugin dir path, and the commit both the server
-      #                         image and the connector are built from) and
-      #                         trino.e2e.version (trino-jdbc for the ITs).
-      - 'hudi-trino/**'
-      - 'docker/trino/**'
-      - 'docker/compose/docker-compose_hadoop340_hive2310_spark402*'
-      - 'docker/compose/hadoop.env'
-      - 'docker/demo/**'
-      - 'hudi-integ-test/**'
-      - 'pom.xml'
-      - '.github/workflows/hudi_trino_e2e.yml'
-      - 'scripts/trino/**'
-  pull_request:
-    branches:
-      - master
-      - 'release-*'
-    # Keep in sync with the push paths above; see the rationale there.
-    paths:
-      - 'hudi-trino/**'
-      - 'docker/trino/**'
-      - 'docker/compose/docker-compose_hadoop340_hive2310_spark402*'
-      - 'docker/compose/hadoop.env'
-      - 'docker/demo/**'
-      - 'hudi-integ-test/**'
-      - 'pom.xml'
-      - '.github/workflows/hudi_trino_e2e.yml'
-      - 'scripts/trino/**'
-  workflow_dispatch:
-
+# Triggers intentionally disabled for Argus-OSS-Security.
+# on:
+#   push:
+#     branches:
+#       - master
+#       - 'release-*'
+#     paths:
+#       # Several entries are deliberately broad -- keep them that way:
+#       #   docker/demo/**        the ITs drive demo fixture scripts
+#       #                         (sparksql-*.commands, setup_demo_container.sh).
+#       #   docker/compose/hadoop.env
+#       #                         copied into the generated compose dir and loaded
+#       #                         by every service in the stack.
+#       #   hudi-integ-test/**    the IT step runs `mvn verify -pl hudi-integ-test`,
+#       #                         which compiles the whole module, so a break
+#       #                         anywhere in it fails this pipeline -- not just
+#       #                         under integ2/.
+#       #   pom.xml               owns trino.version / trino.sha (the shim pom's parent,
+#       #                         the plugin dir path, and the commit both the server
+#       #                         image and the connector are built from) and
+#       #                         trino.e2e.version (trino-jdbc for the ITs).
+#       - 'hudi-trino/**'
+#       - 'docker/trino/**'
+#       - 'docker/compose/docker-compose_hadoop340_hive2310_spark402*'
+#       - 'docker/compose/hadoop.env'
+#       - 'docker/demo/**'
+#       - 'hudi-integ-test/**'
+#       - 'pom.xml'
+#       - '.github/workflows/hudi_trino_e2e.yml'
+#       - 'scripts/trino/**'
+#   pull_request:
+#     branches:
+#       - master
+#       - 'release-*'
+#     # Keep in sync with the push paths above; see the rationale there.
+#     paths:
+#       - 'hudi-trino/**'
+#       - 'docker/trino/**'
+#       - 'docker/compose/docker-compose_hadoop340_hive2310_spark402*'
+#       - 'docker/compose/hadoop.env'
+#       - 'docker/demo/**'
+#       - 'hudi-integ-test/**'
+#       - 'pom.xml'
+#       - '.github/workflows/hudi_trino_e2e.yml'
+#       - 'scripts/trino/**'
+#   workflow_dispatch:
+# 
 concurrency:
   group: hudi-trino-e2e-${{ github.ref }}
   cancel-in-progress: ${{ !contains(github.ref, 'master') && !contains(github.ref, 'release-') }}

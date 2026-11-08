@@ -10,37 +10,38 @@ name: Java CI Engines
 # yml/yaml files are deliberately NOT ignored, unlike the old filter: docker/compose/*.yml drives
 # the integration tests, several modules keep yml test resources, and the workflow files themselves
 # need CI to run when they change.
-on:
-  push:
-    branches:
-      - master
-      - 'release-*'
-      - branch-0.x
-    paths:
-      - '**'
-      # Listed explicitly so the filter does not depend on '**' matching dot-prefixed paths.
-      - '.github/**'
-      - '!**.bmp'
-      - '!**.gif'
-      - '!**.jpg'
-      - '!**.jpeg'
-      - '!**.md'
-      - '!**.pdf'
-      - '!**.png'
-      - '!**.svg'
-      - '!.gitignore'
-  pull_request:
-    branches:
-      - master
-      - 'release-*'
-      - branch-0.x
-  merge_group:
-    types: [checks_requested]
-
-# A group holds one running and one pending run, and a newer pending run replaces the older one
-# even when cancel-in-progress is false. Pushes are therefore keyed by SHA, so a burst of queue
-# merges to master never replaces a pending master run. merge_group refs are unique per queue
-# entry and only pull_request runs cancel in progress, so queue runs are never cancelled.
+# Triggers intentionally disabled for Argus-OSS-Security.
+# on:
+#   push:
+#     branches:
+#       - master
+#       - 'release-*'
+#       - branch-0.x
+#     paths:
+#       - '**'
+#       # Listed explicitly so the filter does not depend on '**' matching dot-prefixed paths.
+#       - '.github/**'
+#       - '!**.bmp'
+#       - '!**.gif'
+#       - '!**.jpg'
+#       - '!**.jpeg'
+#       - '!**.md'
+#       - '!**.pdf'
+#       - '!**.png'
+#       - '!**.svg'
+#       - '!.gitignore'
+#   pull_request:
+#     branches:
+#       - master
+#       - 'release-*'
+#       - branch-0.x
+#   merge_group:
+#     types: [checks_requested]
+# 
+# # A group holds one running and one pending run, and a newer pending run replaces the older one
+# # even when cancel-in-progress is false. Pushes are therefore keyed by SHA, so a burst of queue
+# # merges to master never replaces a pending master run. merge_group refs are unique per queue
+# # entry and only pull_request runs cancel in progress, so queue runs are never cancelled.
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || (github.event_name == 'push' && github.sha) || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}

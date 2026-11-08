@@ -1,21 +1,22 @@
 name: Hudi Trino SPI Compatibility
 
-on:
-  schedule:
-    - cron: '17 4 * * *'
-  workflow_dispatch:
-    inputs:
-      trino_ref:
-        description: 'trinodb/trino ref to verify and pin (default: master HEAD); the release pin-back dispatches this with the released tag'
-        required: false
-        default: 'master'
-
-# Two jobs on purpose: the build job executes mvnw from a fresh trinodb/trino master
-# checkout, so it must never hold a push-capable token; the propose job holds
-# contents: write but runs no third-party code. The failure handler files/updates a
-# drift report issue; on success the propose job pushes the pin-advance branch and a
-# human opens the PR (a GITHUB_TOKEN-created PR would start no workflow runs, so the
-# required checks could never report).
+# Triggers intentionally disabled for Argus-OSS-Security.
+# on:
+#   schedule:
+#     - cron: '17 4 * * *'
+#   workflow_dispatch:
+#     inputs:
+#       trino_ref:
+#         description: 'trinodb/trino ref to verify and pin (default: master HEAD); the release pin-back dispatches this with the released tag'
+#         required: false
+#         default: 'master'
+# 
+# # Two jobs on purpose: the build job executes mvnw from a fresh trinodb/trino master
+# # checkout, so it must never hold a push-capable token; the propose job holds
+# # contents: write but runs no third-party code. The failure handler files/updates a
+# # drift report issue; on success the propose job pushes the pin-advance branch and a
+# # human opens the PR (a GITHUB_TOKEN-created PR would start no workflow runs, so the
+# # required checks could never report).
 permissions:
   contents: read
 

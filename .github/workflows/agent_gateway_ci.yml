@@ -16,25 +16,26 @@
 
 name: Agent Gateway CI
 
-on:
-  push:
-    branches:
-      - master
-      - 'release-*'
-    paths:
-      - 'hudi-agent-gateway/**'
-      - 'hudi-ai-operator/**'
-      - 'hudi-lakehouse/**'
-      - '.github/workflows/agent_gateway_ci.yml'
-  pull_request:
-    branches:
-      - master
-    paths:
-      - 'hudi-agent-gateway/**'
-      - 'hudi-ai-operator/**'
-      - 'hudi-lakehouse/**'
-      - '.github/workflows/agent_gateway_ci.yml'
-
+# Triggers intentionally disabled for Argus-OSS-Security.
+# on:
+#   push:
+#     branches:
+#       - master
+#       - 'release-*'
+#     paths:
+#       - 'hudi-agent-gateway/**'
+#       - 'hudi-ai-operator/**'
+#       - 'hudi-lakehouse/**'
+#       - '.github/workflows/agent_gateway_ci.yml'
+#   pull_request:
+#     branches:
+#       - master
+#     paths:
+#       - 'hudi-agent-gateway/**'
+#       - 'hudi-ai-operator/**'
+#       - 'hudi-lakehouse/**'
+#       - '.github/workflows/agent_gateway_ci.yml'
+# 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}

@@ -1,56 +1,57 @@
 name: Hudi Trino Connector CI
 
-on:
-  push:
-    branches:
-      - master
-      - 'release-*'
-    paths:
-      - 'hudi-trino/**'
-      - '.github/workflows/hudi_trino_ci.yml'
-      - 'scripts/trino/**'
-      # Upstream modules the connector build installs (the -am closure of the JDK 17
-      # install step) plus the poms that own trino.version and the dependency pins.
-      # Keep in sync with the pull_request paths below.
-      - 'pom.xml'
-      - 'hudi-tests-common/**'
-      - 'hudi-io/**'
-      - 'hudi-common/**'
-      - 'hudi-hadoop-common/**'
-      - 'hudi-timeline-service/**'
-      - 'hudi-hadoop-mr/**'
-      - 'hudi-client/pom.xml'
-      - 'hudi-client/hudi-client-common/**'
-      - 'hudi-client/hudi-java-client/**'
-      - 'hudi-sync/hudi-sync-common/**'
-      - 'hudi-sync/hudi-hive-sync/**'
-  # Path-filtered like push. test-hudi-trino-plugin is not a required check, so a PR the filter
-  # skips simply does not show it; it must not be added to the .asf.yaml contexts list.
-  pull_request:
-    branches:
-      - master
-      - 'release-*'
-    paths:
-      - 'hudi-trino/**'
-      - '.github/workflows/hudi_trino_ci.yml'
-      - 'scripts/trino/**'
-      # Upstream modules the connector build installs (the -am closure of the JDK 17
-      # install step) plus the poms that own trino.version and the dependency pins.
-      # Keep in sync with the push paths above.
-      - 'pom.xml'
-      - 'hudi-tests-common/**'
-      - 'hudi-io/**'
-      - 'hudi-common/**'
-      - 'hudi-hadoop-common/**'
-      - 'hudi-timeline-service/**'
-      - 'hudi-hadoop-mr/**'
-      - 'hudi-client/pom.xml'
-      - 'hudi-client/hudi-client-common/**'
-      - 'hudi-client/hudi-java-client/**'
-      - 'hudi-sync/hudi-sync-common/**'
-      - 'hudi-sync/hudi-hive-sync/**'
-  workflow_dispatch:
-
+# Triggers intentionally disabled for Argus-OSS-Security.
+# on:
+#   push:
+#     branches:
+#       - master
+#       - 'release-*'
+#     paths:
+#       - 'hudi-trino/**'
+#       - '.github/workflows/hudi_trino_ci.yml'
+#       - 'scripts/trino/**'
+#       # Upstream modules the connector build installs (the -am closure of the JDK 17
+#       # install step) plus the poms that own trino.version and the dependency pins.
+#       # Keep in sync with the pull_request paths below.
+#       - 'pom.xml'
+#       - 'hudi-tests-common/**'
+#       - 'hudi-io/**'
+#       - 'hudi-common/**'
+#       - 'hudi-hadoop-common/**'
+#       - 'hudi-timeline-service/**'
+#       - 'hudi-hadoop-mr/**'
+#       - 'hudi-client/pom.xml'
+#       - 'hudi-client/hudi-client-common/**'
+#       - 'hudi-client/hudi-java-client/**'
+#       - 'hudi-sync/hudi-sync-common/**'
+#       - 'hudi-sync/hudi-hive-sync/**'
+#   # Path-filtered like push. test-hudi-trino-plugin is not a required check, so a PR the filter
+#   # skips simply does not show it; it must not be added to the .asf.yaml contexts list.
+#   pull_request:
+#     branches:
+#       - master
+#       - 'release-*'
+#     paths:
+#       - 'hudi-trino/**'
+#       - '.github/workflows/hudi_trino_ci.yml'
+#       - 'scripts/trino/**'
+#       # Upstream modules the connector build installs (the -am closure of the JDK 17
+#       # install step) plus the poms that own trino.version and the dependency pins.
+#       # Keep in sync with the push paths above.
+#       - 'pom.xml'
+#       - 'hudi-tests-common/**'
+#       - 'hudi-io/**'
+#       - 'hudi-common/**'
+#       - 'hudi-hadoop-common/**'
+#       - 'hudi-timeline-service/**'
+#       - 'hudi-hadoop-mr/**'
+#       - 'hudi-client/pom.xml'
+#       - 'hudi-client/hudi-client-common/**'
+#       - 'hudi-client/hudi-java-client/**'
+#       - 'hudi-sync/hudi-sync-common/**'
+#       - 'hudi-sync/hudi-hive-sync/**'
+#   workflow_dispatch:
+# 
 concurrency:
   group: hudi-trino-ci-${{ github.ref }}
   cancel-in-progress: ${{ !contains(github.ref, 'master') && !contains(github.ref, 'release-') }}
